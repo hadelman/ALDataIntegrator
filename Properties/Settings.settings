@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ALDataIntegrator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="RightNowUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">connectapi_RNT</Value>
+    </Setting>
+    <Setting Name="RightNowPass" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">gCR9BkkTu8UtwrEH</Value>
+    </Setting>
+    <Setting Name="LoggingDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\ALDataIntegrator\logs</Value>
+    </Setting>
+    <Setting Name="StagingDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\ALDataIntegrator\staging</Value>
+    </Setting>
+    <Setting Name="Delimiter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">,</Value>
+    </Setting>
+    <Setting Name="SFTPHost" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">10.4.4.20</Value>
+    </Setting>
+    <Setting Name="SFTPUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">atolbert</Value>
+    </Setting>
+    <Setting Name="SFTPPass" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Plat1num1</Value>
+    </Setting>
+    <Setting Name="SFTPPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="SFTPRemotePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/tmp/</Value>
+    </Setting>
+    <Setting Name="ExportFileDateFormat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">yyyy-MM-dd</Value>
+    </Setting>
+    <Setting Name="RemoveExportFileAfterUpload" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FileHasHeaders" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
