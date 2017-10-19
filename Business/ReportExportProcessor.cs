@@ -46,6 +46,7 @@ namespace ALDataIntegrator.Business
                 try
                 {
                     _activeReportID = sReportID;
+                    System.Net.ServicePointManager.SecurityProtocol = (System.Net.SecurityProtocolType)3072;
                     AnalyticsReport rpt = _serviceWrapper.getAnalyticsReport(ActiveReportID());
                     if (rpt != null && !string.IsNullOrEmpty(rpt.Name))
                     {
@@ -141,6 +142,7 @@ namespace ALDataIntegrator.Business
 
             foreach (CSVTable csvTable in csvTables)
             {
+                string strTemp;
                 if (csvTable.Rows.Length <= 0)
                 {
                     // Don't output empty extract file
@@ -148,7 +150,8 @@ namespace ALDataIntegrator.Business
                     //break;
                 }
 
-                if (processedExportRecordNbr == 0)
+                // Add header record to extract file if needed
+                if (processedExportRecordNbr == 0 && Properties.Settings.Default.FileHasHeaders == true)
                 {
                     File.AppendAllText(ExportFileName, csvTable.Columns + "\r\n");
                 }
@@ -157,8 +160,41 @@ namespace ALDataIntegrator.Business
 
                 foreach (string row in csvTable.Rows)
                 {
-                    File.AppendAllText(ExportFileName, row + "\r\n");
-                }
+                    // Are we doing Intra Day Data Report?
+                    if (ExportFileName.Contains("Aspect_Intra_Day_Data"))
+                    {
+                        // Yes - Replace spaces in row with underscores
+                        strTemp = row.Replace(" ", "_");
+                        // Is file Pipe delimited?
+                        if (Properties.Settings.Default.Delimiter == "|")
+                        {
+                            // Pipe delimited - Replace nulls with 0's
+                            strTemp = strTemp.Replace("||||||||", "|0|0|0|0|0|0|0|0");
+                            strTemp = strTemp.Replace("||||0|||0|", "|0|0|0|0|0|0|0|0");
+                            strTemp = strTemp.Replace("||", "|0|");
+                            // Make delimiter into a space
+                            strTemp = strTemp.Replace("|", " ");
+                            
+                        }
+                        else
+                        {
+                            // Not Pipe Delimited (Assume it's comma delimited) - Replace nulls with 0's
+                            strTemp = strTemp.Replace(",,,,,,,,", ",0,0,0,0,0,0,0,0");
+                            strTemp = strTemp.Replace(",,,,0,,,0,", ",0,0,0,0,0,0,0,0");
+                            strTemp = strTemp.Replace(",,", ",0,");
+                            // Make delimiter into a space
+                            strTemp = strTemp.Replace(",", " ");                           
+                        }
+                        File.AppendAllText(ExportFileName, strTemp + "\r\n");
+                    }
+                    else
+                    {
+                        // Not Intra Day Data Report - Leave code as it was
+                        File.AppendAllText(ExportFileName, row + "\r\n");
+                    }
+
+                }  // end foreach (string row in csvTable.Rows)
+
             }
             return processedExportRecordNbr;
         }
